@@ -2,7 +2,18 @@ const express = require('express');
 const data_pool = require('../database.js');
 const main = express.Router();
 
+//SHOW PAGE
+main.get('/:id', async (req,res) => {
+    try {
+        const { id } = req.params
+        const singleRow = await data_pool.query("SELECT * FROM main WHERE id = $1", [id])
+        res.json(singleRow.rows)
+    } catch(err) {
+        console.log(err)
+    }
+})
 
+//INDEX
 main.get('/', async (req,res) => {
     try {
         const data = await data_pool.query("SELECT * FROM main")
@@ -12,6 +23,7 @@ main.get('/', async (req,res) => {
     }
 })
 
+//CREATE NEW DATA
 main.post('/', async (req,res) => {
     try {
         const { title, imageurl, description, price } = req.body
@@ -23,6 +35,7 @@ main.post('/', async (req,res) => {
     }
 })
 
+//DELETE DATA
 main.delete('/:id', async (req,res) => {
     try {
         const { id } = req.params 
@@ -33,6 +46,8 @@ main.delete('/:id', async (req,res) => {
     }
 })
 
+
+//EDIT/UPDATE DATA
 main.put('/:id', async (req,res) => {
     try {
         const { id } = req.params
