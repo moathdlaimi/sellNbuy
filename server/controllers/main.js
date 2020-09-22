@@ -23,6 +23,29 @@ main.post('/', async (req,res) => {
     }
 })
 
+main.delete('/:id', async (req,res) => {
+    try {
+        const { id } = req.params 
+        const deletedData = await data_pool.query("DELETE FROM main WHERE id = $1 RETURNING *", [id])
+        res.json(deletedData.rows)
+    } catch(err) {
+        console.log(err)
+    }
+})
+
+main.put('/:id', async (req,res) => {
+    try {
+        const { id } = req.params
+        const { title, imageurl, description, price } = req.body
+        const updatedData = await data_pool.query(
+            "UPDATE main SET title = $1, imageurl = $2, description = $3, price = $4 WHERE id = $5 RETURNING *",
+            [title,imageurl,description,price,id]
+        )
+        res.json(updatedData.rows)
+    } catch (err) {
+        console.log(err)
+    }
+})
 
 
 module.exports = main;
