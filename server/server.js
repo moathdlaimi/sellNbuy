@@ -1,12 +1,12 @@
 const express = require('express');
-const data_pool = require('./database');
+const pool = require('./database');
 const cors = require('cors');
 
 const app = express();
 const port = 3001;
 
 app.use(cors());
-app.use(express.json());
+app.use(express.json()); //req.body
 app.use(express.urlencoded({extended:true}));
 app.use(express.static('public'));
 
