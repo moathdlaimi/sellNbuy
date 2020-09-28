@@ -12,7 +12,7 @@ app.use(express.static('public'));
 
 
 app.get('/', async(req,res) => {
-    res.json('Welcome to Sell N\' Buy ')
+    res.send('Welcome to Sell N\' Buy')
 });
 
 
