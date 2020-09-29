@@ -26,9 +26,9 @@ main.get('/', async (req,res) => {
 //CREATE NEW DATA
 main.post('/', async (req,res) => {
     try {
-        const { title, imageurl, description, price } = req.body
-        const newData = await pool.query("INSERT INTO main (title, imageurl, description, price) VALUES ($1,$2,$3,$4) RETURNING *",
-        [title,imageurl,description,price])
+        const { title,condition, imageurl, description, price } = req.body
+        const newData = await pool.query("INSERT INTO main (title,condition,imageurl, description, price) VALUES ($1,$2,$3,$4,$5) RETURNING *",
+        [title,condition,imageurl,description,price])
         res.json(newData.rows)
     } catch(err) {
         console.error(err.message)
@@ -51,10 +51,10 @@ main.delete('/:id', async (req,res) => {
 main.put('/:id', async (req,res) => {
     try {
         const { id } = req.params
-        const { title, imageurl, description, price } = req.body
+        const { title, condition, imageurl, description, price } = req.body
         const updatedData = await   pool.query(
-            "UPDATE main SET title = $1, imageurl = $2, description = $3, price = $4 WHERE id = $5 RETURNING *",
-            [title,imageurl,description,price,id]
+            "UPDATE main SET title = $1, condition = $2, imageurl = $3, description = $4, price = $5 WHERE id = $6 RETURNING *",
+            [title,condition,imageurl,description,price,id]
         )
         res.json(updatedData.rows)
     } catch (err) {

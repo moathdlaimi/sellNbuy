@@ -2,33 +2,49 @@ import React from 'react';
 
 const NewItem = () => {
     return (
-        <div>
+        <div className="container">
             <h3>New Item</h3>
             <form>
-                <label for="title">Title</label>
-                <input type="text" id="title" name="title"  />
+                <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="title">Title</label>
+                    <input type="text" class="form-control" id="title" />
+                </div>
 
-                <br/>
+                <div class="form-group col-md-4">
+                    <label for="condition">Condition</label>
+                        <select id="condition" class="form-control">
+                        <option selected>Choose...</option>
+                        <option>New</option>
+                        <option>Like New</option>
+                        <option>Excellent</option>
+                        <option>Good</option>
+                        <option>Fair</option>
+                        <option>Salvage</option>
+                        </select>
+                </div>
 
-                <label for="photo">Photo</label>
-                <input type="file" id="photo" name="photo" multiple />
+                <div class="form-group col-md-6">
+                    <label for="photo">Photos</label>
+                    <br />
+                    <input type="file" id="photo" name="photo" multiple />
+                </div>
+                </div>
 
-                <br/>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea class="form-control" id="description" rows="3">Details about the item</textarea>
+                </div>
 
-                <label for="description">Description</label>
-                <textarea id="description" name="description">
-
-                </textarea>
-
-                <br/>
-
-                <label for="price">Price</label>
-                <input type="number" id="price" name="price"/>
-
-                <br/>
-                
-                <input type="submit" value="Submit" />
+                <div class="form-row">
+                <div class="form-group col-md-2">
+                    <label for="price">Price</label>
+                    <input type="number" class="form-control" id="price" />
+                </div>
+                </div>
+                    <button type="submit" class="btn btn-primary">Upload</button>
             </form>
+
         </div>
     )
 }
