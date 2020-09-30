@@ -1,14 +1,16 @@
 import React from 'react';
-import './App.css';
+import './css/App.css';
 import AllItems from './components/AllItems';
 import NewItem from './components/NewItem';
 
+
 function App() {
+
   return (
-    <>
-      <AllItems />
-      <NewItem />
-    </>
+      <div>
+          <AllItems />
+          <NewItem />
+      </div>
   );
 }
 

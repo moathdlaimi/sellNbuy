@@ -26,8 +26,8 @@ main.get('/', async (req,res) => {
 //CREATE NEW DATA
 main.post('/', async (req,res) => {
     try {
-        const { title,condition, imageurl, description, price } = req.body
-        const newData = await pool.query("INSERT INTO main (title,condition,imageurl, description, price) VALUES ($1,$2,$3,$4,$5) RETURNING *",
+        const { title, condition, imageurl, description, price } = req.body
+        const newData = await pool.query("INSERT INTO main (title, condition, imageurl, description, price) VALUES ($1,$2,$3,$4,$5) RETURNING *",
         [title,condition,imageurl,description,price])
         res.json(newData.rows)
     } catch(err) {
