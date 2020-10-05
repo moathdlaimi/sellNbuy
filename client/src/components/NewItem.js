@@ -1,5 +1,6 @@
 import React from 'react';
 import UseForm from '../hooks/useForm';
+// import axios from 'axios';
 
 
 const NewItem = () => {
@@ -10,17 +11,29 @@ const NewItem = () => {
     const createItem = async (e) => {
         e.preventDefault()
         try {
-            const body = { data }
             const res = await fetch(URL, {
                 method: "POST",
                 headers: { "Content-Type" : "application/json" },
-                body: JSON.stringify(body)
+                body: JSON.stringify(data)
             });
             console.log(res);
         } catch (err) {
             console.error(err.message)
         }
     }
+
+    // const conditionOptions = [ 'New' , 'Used'];
+
+    // const createItem = (e) => {
+    //     e.preventDefault()
+    //     axios
+    //     .post(URL, data)
+    //     .then((res) => {
+    //       window.location.reload();
+    
+    //     })
+    //     console.log(e);
+    //   }
 
     return (
         <div className="container">
@@ -35,20 +48,21 @@ const NewItem = () => {
                         className="form-control" 
                         name="title" 
                         defaultValue={data ? data.title : ""}
-                        onChange={setData} 
+                        onChange={setData}
+                        required 
                     />
                 </div>
 
                 <div className="form-group col-md-4">
                     <label>Condition</label>
-                        <select id="condition" className="form-control" onChange={setData}  defaultValue={data ? data.condition : ""} >
-                        <option defaultValue="new" >Choose...</option>
-                        <option defaultValue="new">New</option>
-                        <option defaultValue="like new">Like New</option>
-                        <option defaultValue="excellent">Excellent</option>
-                        <option defaultValue="good">Good</option>
-                        <option defaultValue="fair">Fair</option>
-                        <option defaultValue="salvage">Salvage</option>
+                        <select id="condition" className="form-control" onChange={setData} required >
+                            <option value="new" >Choose...</option>
+                            <option value="new">New</option>
+                            <option value="like new">Like New</option>
+                            <option value="excellent">Excellent</option>
+                            <option value="good">Good</option>
+                            <option value="fair">Fair</option>
+                            <option value="salvage">Salvage</option>
                         </select>
                 </div>
 
@@ -59,7 +73,8 @@ const NewItem = () => {
                         name="imageurl" 
                         multiple
                         defaultValue={data ? data.imageurl : ""}
-                        onChange={setData} 
+                        onChange={setData}
+                         
                     />
                 </div>
                 </div>
@@ -72,6 +87,7 @@ const NewItem = () => {
                         rows="3"
                         defaultValue={data ? data.description : ""}
                         onChange={setData}
+                        required
                     ></textarea>
                 </div>
 
@@ -83,7 +99,8 @@ const NewItem = () => {
                         name="price" 
                         className="form-control"  
                         defaultValue={data ? data.price : ""}
-                        onChange={setData} 
+                        onChange={setData}
+                        required 
                     />
                 </div>
                 </div>
