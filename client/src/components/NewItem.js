@@ -1,14 +1,34 @@
 import React from 'react';
 import UseForm from '../hooks/useForm';
-// import axios from 'axios';
-
+import S3FileUpload from 'react-s3';
 
 const NewItem = () => {
 
+    
+    // const [ url, setURL ] = UseS3();
     const [ data, setData ] = UseForm();
     const URL = 'http://localhost:3001/main';
 
+    const config = {
+        bucketName: process.env.REACT_APP_BUCKET,
+        region: 'us-west-1',
+        accessKeyId: process.env.REACT_APP_KEY,
+        secretAccessKey: process.env.REACT_APP_SECRET
+    }
+
+    const upload = (event) => {
+        console.log(event.target.files[0])
+        S3FileUpload
+        .uploadFile(event.target.files[0],config)
+        .then((response) => {
+            console.log(response);
+            document.querySelector("#urlforimage").value = response.location;
+        })
+        .catch(err => console.log(err))
+    }
+
     const createItem = async (e) => {
+        data.imageurl = document.querySelector("#urlforimage").value;
         e.preventDefault()
         try {
             const res = await fetch(URL, {
@@ -17,10 +37,13 @@ const NewItem = () => {
                 body: JSON.stringify(data)
             });
             console.log(res);
+            document.querySelector("#urlforimage").value = ""; //clear form after submit
         } catch (err) {
             console.error(err.message)
         }
     }
+
+   
 
     // const conditionOptions = [ 'New' , 'Used'];
 
@@ -55,7 +78,7 @@ const NewItem = () => {
 
                 <div className="form-group col-md-4">
                     <label>Condition</label>
-                        <select id="condition" className="form-control" onChange={setData} required >
+                        <select id="condition" className="form-control" name="condition" onChange={setData} required >
                             <option value="new" >Choose...</option>
                             <option value="new">New</option>
                             <option value="like new">Like New</option>
@@ -70,12 +93,17 @@ const NewItem = () => {
                     <label>Photos</label>
                     <input 
                         type="file"
-                        name="imageurl" 
-                        multiple
-                        defaultValue={data ? data.imageurl : ""}
-                        onChange={setData}
-                         
-                    />
+                        onChange={upload}/>
+                </div>
+                
+                <div className="form-group col-md-6">
+                    <input 
+                        type="text"
+                        name="imageurl"
+                        id="urlforimage" 
+                        // defaultValue={data ? data.imageurl : ""} 
+                        // style={{display : "none"}}
+                        onChange={setData}/>
                 </div>
                 </div>
 
