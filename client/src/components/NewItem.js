@@ -5,7 +5,7 @@ import S3FileUpload from 'react-s3';
 const NewItem = () => {
 
     
-    // const [ url, setURL ] = UseS3();
+    
     const [ data, setData ] = UseForm();
     const URL = 'http://localhost:3001/main';
 
@@ -37,7 +37,9 @@ const NewItem = () => {
                 body: JSON.stringify(data)
             });
             console.log(res);
-            document.querySelector("#urlforimage").value = ""; //clear form after submit
+            // document.querySelector("#urlforimage").value = ""; //clear form after submit
+            document.getElementById("clearForm").reset()
+            setData = ""
         } catch (err) {
             console.error(err.message)
         }
@@ -47,26 +49,17 @@ const NewItem = () => {
 
     // const conditionOptions = [ 'New' , 'Used'];
 
-    // const createItem = (e) => {
-    //     e.preventDefault()
-    //     axios
-    //     .post(URL, data)
-    //     .then((res) => {
-    //       window.location.reload();
-    
-    //     })
-    //     console.log(e);
-    //   }
 
     return (
         <div className="container">
             <h3>New Item</h3>
             
-            <form onSubmit={createItem}>
+            <form onSubmit={createItem} id="clearForm">
                 <div className="form-row">
                 <div className="form-group col-md-6">
                     <label>Title</label>
-                    <input 
+                    <input
+                        className="clearForm" 
                         type="text" 
                         className="form-control" 
                         name="title" 
@@ -78,7 +71,7 @@ const NewItem = () => {
 
                 <div className="form-group col-md-4">
                     <label>Condition</label>
-                        <select id="condition" className="form-control" name="condition" onChange={setData} required >
+                        <select className="clearForm" id="condition" className="form-control" name="condition" onChange={setData} required >
                             <option value="new" >Choose...</option>
                             <option value="new">New</option>
                             <option value="like new">Like New</option>
@@ -92,17 +85,18 @@ const NewItem = () => {
                 <div className="form-group col-md-6">
                     <label>Photos</label>
                     <input 
+                        className="clearForm"
                         type="file"
                         onChange={upload}/>
                 </div>
                 
                 <div className="form-group col-md-6">
                     <input 
+                        className="clearForm"
                         type="text"
                         name="imageurl"
-                        id="urlforimage" 
-                        // defaultValue={data ? data.imageurl : ""} 
-                        // style={{display : "none"}}
+                        id="urlforimage"  
+                        style={{display : "none"}}
                         onChange={setData}/>
                 </div>
                 </div>
@@ -110,7 +104,7 @@ const NewItem = () => {
                 <div className="form-group">
                     <label>Description</label>
                     <textarea 
-                        className="form-control" 
+                        className="form-control clearForm" 
                         name="description"  
                         rows="3"
                         defaultValue={data ? data.description : ""}
