@@ -10,7 +10,7 @@ const UseForm = () => {
             { ...state, [event.target.name] : event.target.value }
         ))
     }
-    console.log(state);
+    // console.log(state);
     return [ state, handleChange ]
 }
 

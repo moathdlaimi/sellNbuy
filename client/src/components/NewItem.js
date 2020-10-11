@@ -1,6 +1,8 @@
 import React from 'react';
 import UseForm from '../hooks/useForm';
 import S3FileUpload from 'react-s3';
+import Navigation from './Navigation.js';
+
 
 const NewItem = () => {
 
@@ -17,7 +19,7 @@ const NewItem = () => {
     }
 
     const upload = (event) => {
-        console.log(event.target.files[0])
+        // console.log(event.target.files[0])
         S3FileUpload
         .uploadFile(event.target.files[0],config)
         .then((response) => {
@@ -38,8 +40,10 @@ const NewItem = () => {
             });
             console.log(res);
             // document.querySelector("#urlforimage").value = ""; //clear form after submit
-            document.getElementById("clearForm").reset()
-            setData = ""
+            document.querySelector("#title").value = "";
+            document.querySelector("#description").value = "";
+            document.querySelector("#price").value = "";
+            
         } catch (err) {
             console.error(err.message)
         }
@@ -51,7 +55,10 @@ const NewItem = () => {
 
 
     return (
+        <>
+        <Navigation /> 
         <div className="container">
+           
             <h3>New Item</h3>
             
             <form onSubmit={createItem} id="clearForm">
@@ -59,9 +66,8 @@ const NewItem = () => {
                 <div className="form-group col-md-6">
                     <label>Title</label>
                     <input
-                        className="clearForm" 
+                        id="title" 
                         type="text" 
-                        className="form-control" 
                         name="title" 
                         defaultValue={data ? data.title : ""}
                         onChange={setData}
@@ -71,7 +77,7 @@ const NewItem = () => {
 
                 <div className="form-group col-md-4">
                     <label>Condition</label>
-                        <select className="clearForm" id="condition" className="form-control" name="condition" onChange={setData} required >
+                        <select  id="condition" className="form-control" name="condition" onChange={setData} required >
                             <option value="new" >Choose...</option>
                             <option value="new">New</option>
                             <option value="like new">Like New</option>
@@ -84,15 +90,13 @@ const NewItem = () => {
 
                 <div className="form-group col-md-6">
                     <label>Photos</label>
-                    <input 
-                        className="clearForm"
+                    <input
                         type="file"
                         onChange={upload}/>
                 </div>
                 
                 <div className="form-group col-md-6">
-                    <input 
-                        className="clearForm"
+                    <input
                         type="text"
                         name="imageurl"
                         id="urlforimage"  
@@ -104,7 +108,8 @@ const NewItem = () => {
                 <div className="form-group">
                     <label>Description</label>
                     <textarea 
-                        className="form-control clearForm" 
+                        className="form-control" 
+                        id="description"
                         name="description"  
                         rows="3"
                         defaultValue={data ? data.description : ""}
@@ -117,6 +122,7 @@ const NewItem = () => {
                 <div className="form-group col-md-2">
                     <label>Price</label>
                     <input 
+                        id="price"
                         type="number" 
                         name="price" 
                         className="form-control"  
@@ -131,6 +137,7 @@ const NewItem = () => {
             </form>
 
         </div>
+        </>
     )
 }
 
