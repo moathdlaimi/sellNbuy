@@ -1,11 +1,11 @@
 import React, { useState,useEffect } from 'react';
 import Navigation from './Navigation.js';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 
 const Item = () => {
     // {match} // older way to extract the params object from match like the line below
     // const params = match.params;
-    
+    const history = useHistory() // render main page after delete
     const params = useParams();
     console.log(params.id);
     
@@ -22,6 +22,19 @@ const Item = () => {
         .then(setData)
         .catch(err => console.log(err))
       },[]);
+    
+     //DELETE ITEM
+    const deleteItem = () => {
+      fetch(URL, {
+        method: 'DELETE',
+      })
+      .then(res => res.json())
+      .then(res => console.log(res))
+      history.push('/')
+    }
+ 
+    
+    
 
     return (
         <div>
@@ -37,7 +50,7 @@ const Item = () => {
             </div>
             }) : null 
             }
-        
+          <button onClick={deleteItem}> DELETE </button> 
         </div>
     )
 }

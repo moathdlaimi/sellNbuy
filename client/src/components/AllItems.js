@@ -29,7 +29,8 @@ const AllItems = () => {
       .then(setData)
       .catch(err => console.log(err))
     },[]);
-    console.log()
+    
+  
     return (
       <>
       <Navigation /> 
@@ -43,7 +44,7 @@ const AllItems = () => {
                   <h4>${item.price}</h4>
           </div>
         }) : null 
-      }      
+      }     
     </div>
   </>  
 

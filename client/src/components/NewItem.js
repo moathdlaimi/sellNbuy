@@ -2,6 +2,7 @@ import React from 'react';
 import UseForm from '../hooks/useForm';
 import S3FileUpload from 'react-s3';
 import Navigation from './Navigation.js';
+import { useHistory } from 'react-router-dom';
 
 
 const NewItem = () => {
@@ -10,6 +11,7 @@ const NewItem = () => {
     
     const [ data, setData ] = UseForm();
     const URL = 'http://localhost:3001/main';
+    const history = useHistory();
 
     const config = {
         bucketName: process.env.REACT_APP_BUCKET,
@@ -43,6 +45,7 @@ const NewItem = () => {
             document.querySelector("#title").value = "";
             document.querySelector("#description").value = "";
             document.querySelector("#price").value = "";
+            history.push('/');
             
         } catch (err) {
             console.error(err.message)
