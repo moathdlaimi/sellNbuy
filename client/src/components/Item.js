@@ -1,9 +1,14 @@
 import React, { useState,useEffect } from 'react';
 import Navigation from './Navigation.js';
+import { useParams } from 'react-router-dom';
 
-const Item = ({match}) => {
-    const params = match.params;
-    // console.log(params.id)
+const Item = () => {
+    // {match} // older way to extract the params object from match like the line below
+    // const params = match.params;
+    
+    const params = useParams();
+    console.log(params.id);
+    
     const [ data, setData ] = useState([])
     const URL = `http://localhost:3001/main/${params.id}`
     
@@ -32,7 +37,7 @@ const Item = ({match}) => {
             </div>
             }) : null 
             }
-
+        
         </div>
     )
 }
