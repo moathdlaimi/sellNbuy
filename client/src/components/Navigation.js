@@ -11,7 +11,7 @@ function Navigation() {
           
 
           <Link to="/"> Home </Link>
-          <Link to="newPosting">New Posting</Link>
+          <Link to="/newPosting">New Posting</Link>
 
         </nav>
 

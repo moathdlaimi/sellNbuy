@@ -29,7 +29,7 @@ const AllItems = () => {
       .then(setData)
       .catch(err => console.log(err))
     },[]);
-
+    console.log()
     return (
       <>
       <Navigation /> 
@@ -39,7 +39,7 @@ const AllItems = () => {
         data ? data.map((item,index) => {
           return <div key={index} className="items-container">
                   <img src={item.imageurl} alt="item" />
-                  <h3> <Link to={"/Item/"+item.id}>{item.title}</Link></h3>
+                  <h3> <Link to={"/Item/"+item.id} search={item.id}>{item.title}</Link></h3>
                   <h4>${item.price}</h4>
           </div>
         }) : null 

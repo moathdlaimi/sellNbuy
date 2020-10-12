@@ -1,10 +1,12 @@
 import React, { useState,useEffect } from 'react';
+import Navigation from './Navigation.js';
 
-
-const Item = () => {
+const Item = ({match}) => {
+    const params = match.params;
+    // console.log(params.id)
     const [ data, setData ] = useState([])
-    const URL = 'http://localhost:3001/main/1'
-
+    const URL = `http://localhost:3001/main/${params.id}`
+    
     function fetchData(){
         return fetch(URL)
         .then(res => res.json());
@@ -18,6 +20,7 @@ const Item = () => {
 
     return (
         <div>
+          <Navigation />
             
             {
             data ? data.map((item,index) => {
