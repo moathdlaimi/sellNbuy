@@ -2,44 +2,62 @@ import React, { useState,useEffect } from 'react';
 import Navigation from './Navigation.js';
 import { useParams, useHistory } from 'react-router-dom';
 
+
 const Item = () => {
-    // {match} // older way to extract the params object from match like the line below
+    // {match} // we pass {match} to Item, older way to extract the params object from match like the line below
     // const params = match.params;
     const history = useHistory() // render main page after delete
     const params = useParams();
-    console.log(params.id);
+    // console.log(params.id);
     
-    const [ data, setData ] = useState([])
-    const URL = `http://localhost:3001/main/${params.id}`
+    const [ data, setData ] = useState([]);
+    const URL = `http://localhost:3001/main/${params.id}`;
     
-    function fetchData(){
+    // function fetchData(){
+    //     return fetch(URL)
+    //     .then(res => res.json());
+    //   }
+    
+    //   useEffect(() => {
+    //     fetchData()
+    //     .then(setData)
+    //     .catch(err => console.log(err))
+    //   },[]);
+
+    //GET ITEM 
+    useEffect(() => {
+      const fetchData = () => {
         return fetch(URL)
-        .then(res => res.json());
-      }
-    
-      useEffect(() => {
-        fetchData()
+        .then( res => res.json())
         .then(setData)
-        .catch(err => console.log(err))
-      },[]);
-    
-     //DELETE ITEM
-    const deleteItem = () => {
-      fetch(URL, {
-        method: 'DELETE',
-      })
-      .then(res => res.json())
-      .then(res => console.log(res))
-      history.push('/')
-    }
- 
-    
+        .catch( err => console.log(err))
+      }
+      fetchData()
+    },[URL])
     
 
+    //DELETE ITEM
+    const deleteItem = () => {
+      
+      if(window.confirm('Are sure you want to delete this posting?')){
+        fetch(URL, {
+          method: 'DELETE',
+        })
+        .then(res => res.json())
+        .then(res => console.log(res))
+        history.push('/')
+      } 
+        else {
+        console.log('delete canceled')
+        }
+
+      }
+
+    
     return (
         <div>
           <Navigation />
-            
+          
             {
             data ? data.map((item,index) => {
             return <div key={index} className="items-container">
@@ -50,7 +68,10 @@ const Item = () => {
             </div>
             }) : null 
             }
-          <button onClick={deleteItem}> DELETE </button> 
+
+            <button type="button" className="btn btn-secondary">EDIT</button>
+            <button type="button" onClick={deleteItem} className="btn btn-danger">DELETE</button>
+            
         </div>
     )
 }

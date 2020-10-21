@@ -8,27 +8,31 @@ const AllItems = () => {
     const [ data, setData ] = useState([])
     const URL = 'http://localhost:3001/main';
   
-    // useEffect(() => {
-    //   async function fetchData(){
-    //     const res = await fetch(URL)
-    //     res
-    //     .json()
-    //     .then(res => setData(res))
-    //     .catch(err => console.log(err))
-    //   }
-    //   fetchData();
-    // });
-    
-     function fetchData(){
-      return fetch(URL)
-      .then(res => res.json());
-    }
-  
+    const fetchData = async () => {
+      try {
+        const res = await fetch(URL);
+        const jsonData = await res.json();
+
+        setData(jsonData);
+      } catch (err) {
+        console.error(err.message);
+      }
+    };
+
     useEffect(() => {
-      fetchData()
-      .then(setData)
-      .catch(err => console.log(err))
+      fetchData();
     },[]);
+    
+    //  function fetchData(){
+    //   return fetch(URL)
+    //   .then(res => res.json());
+    // }
+  
+    // useEffect(() => {
+    //   fetchData()
+    //   .then(setData)
+    //   .catch(err => console.log(err))
+    // },[]);
     
   
     return (
