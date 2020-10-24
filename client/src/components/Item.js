@@ -1,6 +1,7 @@
 import React, { useState,useEffect } from 'react';
 import Navigation from './Navigation.js';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, Link } from 'react-router-dom';
+
 
 
 const Item = () => {
@@ -52,7 +53,6 @@ const Item = () => {
         }
 
       }
-
     
     return (
         <div>
@@ -69,10 +69,11 @@ const Item = () => {
             }) : null 
             }
 
-            <button type="button" className="btn btn-secondary">EDIT</button>
+            <button type="button" className="btn btn-secondary"><Link to={"/EditItem/"+params.id}>Edit</Link></button>
             <button type="button" onClick={deleteItem} className="btn btn-danger">DELETE</button>
-            
         </div>
+       
+
     )
 }
 
