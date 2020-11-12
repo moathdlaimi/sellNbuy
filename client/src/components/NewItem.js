@@ -11,7 +11,7 @@ const NewItem = () => {
     
     const [ data, setData ] = UseForm();
     const URL = 'http://localhost:3001/main';
-    const history = useHistory();
+    const history = useHistory(); // will use to reload main page
 
     const config = {
         bucketName: process.env.REACT_APP_BUCKET,
