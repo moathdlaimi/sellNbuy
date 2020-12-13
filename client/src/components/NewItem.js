@@ -3,6 +3,7 @@ import UseForm from '../hooks/useForm';
 import S3FileUpload from 'react-s3';
 import Navigation from './Navigation.js';
 import { useHistory } from 'react-router-dom';
+import '../css/NewItem.css';
 
 
 const NewItem = () => {

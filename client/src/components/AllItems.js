@@ -1,6 +1,7 @@
 import React, { useState,useEffect } from 'react';
 import {Link} from 'react-router-dom';
 import '../css/App.css';
+import '../css/AllItems.css';
 import Navigation from './Navigation.js';
 
 

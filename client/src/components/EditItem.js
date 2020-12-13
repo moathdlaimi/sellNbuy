@@ -58,7 +58,8 @@ const EditItem = () => {
     return (
         <div>
          <Navigation /> 
-
+         <div className="container">
+         <h3>Edit Item</h3>
             <form  onSubmit={updateItem} id="clearForm">
                 <div className="form-row">
                 <div className="form-group col-md-6">
@@ -133,7 +134,7 @@ const EditItem = () => {
 
                 <input type="submit" className="btn btn-primary" />
             </form>
-             
+            </div>  
         </div>
     );
 }
